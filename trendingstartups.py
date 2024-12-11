@@ -52,7 +52,7 @@ from langchain_groq import ChatGroq
 llm = ChatGroq(
     temperature=0.1,
     model_name="llama-3.1-70b-versatile",
-    groq_api_key="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"
+    groq_api_key="your key"
 )
 
 # Get industry and description as arguments
