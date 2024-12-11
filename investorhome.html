@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Home</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #FFFFFF;
+            color: #293340;
+            position: relative;
+        }
+        .logo {
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .logo img {
+            width: 1200px;
+            height: auto;
+        }
+        h1 {
+            font-size: 64px;
+            color: #6DBF57;
+            margin-top: 20px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            width: 90%;
+            max-width: 4800px;
+            height: 1200px;
+            background-color: #293340;
+            border-radius: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #FFFFFF;
+        }
+        .options-container {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            flex-wrap: nowrap;
+        }
+        .option-box {
+            flex: 1;
+            margin: 0 10px;
+            height: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #FFFFFF;
+            color: #293340;
+            border-radius: 20px;
+            font-size: 48px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+        .option-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+        }
+        .option-icon {
+            font-size: 120px;
+            margin-bottom: 20px;
+            color: #6DBF57;
+        }
+        .option-description {
+            font-size: 32px;
+            color: #666666;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #1B2530;
+            color: #FFFFFF;
+            font-size: 28px;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+        .circle1 {
+            width: 200px;
+            height: 200px;
+            background-color: #6DBF57;
+            top: 10%;
+            left: 5%;
+        }
+        .circle2 {
+            width: 150px;
+            height: 150px;
+            background-color: #6DBF57;
+            bottom: 15%;
+            right: 10%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo at the top -->
+    <div class="logo" onclick="window.location.href='about.html'">
+        <img src="logofull.png" alt="Logo">
+    </div>
+
+    <h1>Investor Home</h1>
+
+    <!-- Decorative circles for visual interest -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+
+    <!-- Main container with centered options -->
+    <div class="main-container">
+        <div class="options-container">
+            <!-- Hot Trending Industries Box -->
+            <div class="option-box" onclick="window.location.href='hottrendingindustries.html'">
+                <div class="option-icon">🔥</div> <!-- Fire icon for trending industries -->
+                <div>Hot Trending Industries</div>
+                <p class="option-description">Discover the hottest industries attracting investments and attention.</p>
+            </div>
+
+            <!-- Recently Funded Startups Box -->
+            <div class="option-box" onclick="window.location.href='recentlyfundedstartups.html'">
+                <div class="option-icon">💸</div> <!-- Money icon for recently funded startups -->
+                <div>Recently Funded Startups</div>
+                <p class="option-description">Explore startups that have recently secured funding rounds.</p>
+            </div>
+
+            <!-- IPO Predictor Box -->
+            <div class="option-box" onclick="window.location.href='prediciton.html'">
+                <div class="option-icon">📊</div> <!-- Chart icon for IPO predictor -->
+                <div>IPO Predictor</div>
+                <p class="option-description">Get insights into startups likely to go public soon.</p>
+            </div>
+            
+            <!-- Expert Analysis Box -->
+            <div class="option-box" onclick="window.location.href='expertanalysis.html'">
+                <div class="option-icon">🔍</div> <!-- Magnifying glass icon for expert analysis -->
+                <div>Expert Analysis</div>
+                <p class="option-description">Read in-depth analysis from industry experts and analysts.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer bar -->
+    <div class="footer">
+        VentureVision 2024
+    </div>
+
+</body>
+</html>

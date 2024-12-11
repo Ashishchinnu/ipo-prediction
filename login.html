@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Login Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #F5F7FA;
+        }
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(41, 51, 64, 0.05);
+            z-index: 1;
+        }
+        .logo-box {
+            cursor: pointer;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+        }
+        .logo-box img {
+            width: 900px;
+            height: auto;
+        }
+        .login-container {
+            background-color: #FFFFFF;
+            width: 1350px;
+            padding: 135px;
+            border-radius: 95px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #293340;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .login-container h2 {
+            font-size: 81px;
+            margin-bottom: 67px;
+            color: #293340;
+        }
+        .login-container img {
+            display: block;
+            margin: 0 auto 67px;
+            cursor: pointer;
+            width: 450px;
+            height: auto;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 22px;
+            margin: 22px 0;
+            border: 1px solid #E9ECEF;
+            border-radius: 56px;
+            font-size: 87px;
+            background-color: #F5F7FA;
+            color: #495057;
+        }
+        .login-container input::placeholder {
+            color: #666666;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 22px;
+            background-color: #293340;
+            color: white;
+            border: none;
+            border-radius: 56px;
+            cursor: pointer;
+            font-size: 45px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .login-container button:hover {
+            background-color: #354556;
+        }
+        .signup-link {
+            margin-top: 45px;
+            font-size: 32px;
+            color: #666666;
+        }
+        .signup-link a {
+            color: #6DBF57;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        async function login(event) {
+    event.preventDefault();
+
+    const username = document.querySelector('input[type="text"]').value;
+    const password = document.querySelector('input[type="password"]').value;
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        const result = await response.json();
+
+        if (result.message === "User found") {
+            alert("Login successful!");
+            // Redirect based on user_type
+            if (result.user_type === "Founder") {
+                window.location.href = "founderhome.html"; // Redirect to the Founder page
+            } else if (result.user_type === "Investor") {
+                window.location.href = "investorhome.html"; // Redirect to the Investor page
+            } else if (result.user_type === "Enthusiast") {
+                window.location.href = "enthusiasthomepage.html"; // Redirect to the Enthusiast page
+            } else {
+                window.location.href = "default.html"; // Default page if user_type is unknown
+            }
+        } else {
+            alert("Login failed: " + result.message);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+    }
+}
+
+    </script>
+</head>
+<body>
+    <!-- Background overlay -->
+    <div class="background-overlay"></div>
+
+    <!-- Logo Box -->
+    <div class="logo-box" onclick="redirectToAbout()">
+        <img src="logofull.png" alt="Logo">
+    </div>
+
+    <!-- Login container -->
+    <div class="login-container">
+        <h2>Login</h2>
+        <img src="logo.png" alt="Logo" onclick="location.reload();">
+        
+        <form onsubmit="login(event)">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-link">
+            Don't have an account? <a href="signup.html">Sign up</a>
+        </div>
+    </div>
+
+</body>
+</html>

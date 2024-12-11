@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VentureVision - Latest Funded Startups</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #293340;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 200%;
+        }
+
+        header {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        header img {
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 4em;
+            color: rgb(109, 191, 87);
+        }
+
+        header .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgb(109, 191, 87);
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        header .home-button:hover {
+            background-color: rgb(41, 51, 64);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1600px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        h2 {
+            color: rgb(41, 51, 64);
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        #result {
+            margin-top: 40px;
+            color: rgb(41, 51, 64);
+            font-size: 1.5em;
+            text-align: left;
+        }
+
+        footer {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 40px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: rgb(109, 191, 87);
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Custom font for bolded text */
+        .bold-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Logo with clickable link -->
+        <a href="investorhome.html">
+            <img src="/static/logofull.png" alt="VentureVision Logo">
+        </a>
+
+        <h1>VentureVision</h1>
+        <p>Explore Latest Funded Startups</p>
+    </header>
+    <main>
+        <h2>Latest Funded Startups</h2>
+        <p>Discover the most recently funded startups with significant backing in high-growth industries.</p>
+
+        <!-- Result container to display industry insights -->
+        <div id="result"></div>
+    </main>
+    <footer>
+        <p>Contact us at <a href="mailto:info@venturevision.com">info@venturevision.com</a> | &copy; 2024 VentureVision</p>
+        <p>Follow us on <a href="https://twitter.com/venturevision" target="_blank">Twitter</a> and <a href="https://linkedin.com/company/venturevision" target="_blank">LinkedIn</a></p>
+    </footer>
+
+    <script>
+        // Fetch trending industry insights when the page loads
+        async function fetchRecentlyFundedStartups() {
+            try {
+                const response = await fetch("http://127.0.0.1:8000/recently_funded_startups/", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+                    displayResults(data.content); // Assuming 'content' holds the response text from recently_funded_startups()
+                } else {
+                    alert("Error: " + response.statusText);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                alert("An error occurred. Please check the console for details.");
+            }
+        }
+    
+        // Display the fetched industry insights
+        function displayResults(content) {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";  // Clear previous results
+    
+            if (!content) {
+                resultDiv.textContent = "No insights available.";
+                return;
+            }
+
+            // Format and display content with line breaks
+            // Replace **text** with <strong>text</strong> and apply bold-text class for font change
+            content = content.replace(/\*\*(.*?)\*\*/g, '<span class="bold-text">$1</span>');
+
+            resultDiv.innerHTML = `<h3>Startup Insights:</h3><p>${content.replace(/\n/g, '<br>')}</p>`;
+        }
+    
+        // Load industry insights on page load
+        window.onload = fetchRecentlyFundedStartups;
+    </script>
+</body>
+</html>

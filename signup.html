@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+  
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #F5F7FA; /* Light gray background */
+        }
+        .logo-full {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .signup-container {
+            background-color: #FFFFFF;
+            width: 1500px;
+            padding: 100px;
+            border-radius: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 100px;
+            font-size: 50px;
+            color: #293340; /* Dark navy blue from the previous design */
+        }
+        .signup-container img {
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            width: 200px;
+            height: auto;
+        }
+        .signup-container input[type="text"],
+        .signup-container input[type="email"],
+        .signup-container input[type="password"] {
+            width: 100%;
+            padding: 50px;
+            margin: 50px 0;
+            border: 1px solid #E9ECEF; /* Border color from previous design */
+            border-radius: 25px;
+            font-size: 40px;
+            background-color: #F5F7FA; /* Light gray background for inputs */
+            color: #495057; /* Text color from previous design */
+        }
+        .signup-container button {
+            width: 100%;
+            padding: 50px;
+            background-color: #293340; /* Dark navy blue from previous design */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 40px;
+            transition: background-color 0.3s ease;
+        }
+        .signup-container button:hover {
+            background-color: #354556; /* Lighter navy blue for hover state */
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 75px;
+            font-size: 30px;
+            color: #666666; /* Secondary text color from previous design */
+        }
+        .login-link a {
+            color: #6DBF57; /* Green accent color from previous design */
+            text-decoration: none;
+            font-size: 30px;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Logo Image (link to default.html) -->
+    <a href="default.html">
+        <img src="logofull.png" alt="Full Logo" class="logo-full">
+    </a>
+
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <!-- Logo above the signup text -->
+        <img src="logo.png" alt="Logo" onclick="location.reload();"> <!-- Refresh the page on click -->
+        
+        <form id="signup-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="login.html">Log in</a> <!-- Link to login.html -->
+        </div>
+    </div>
+
+    <script>
+    document.getElementById("signup-form").addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        // Collect data from the form
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Prepare the data for the API request
+        const data = {
+            username: username,
+            email: email,
+            password: password
+        };
+
+        try {
+            // Send the data to the backend API
+            const response = await fetch("http://127.0.0.1:8000/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message); // Success message
+                
+                // Save the email in localStorage
+                localStorage.setItem("userEmail", email);
+
+                // Redirect to details.html
+                window.location.href = 'details.html';
+            } else {
+                alert("Error: " + result.detail); // Error message from the API
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        }
+    });
+</script>
+
+
+</body>
+</html>

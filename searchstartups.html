@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Search</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        #search-input {
+            padding: 10px;
+            width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #search-button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: none;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .error {
+            color: #dc3545;
+            padding: 10px;
+            background-color: #f8d7da;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .result-content {
+            white-space: pre-line;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .result-header {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Startup Search</h1>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Enter startup name...">
+        <button id="search-button">
+            <i class="fas fa-search"></i> Search
+        </button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('search-button').addEventListener('click', handleSearch);
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        async function handleSearch() {
+            const startupName = document.getElementById('search-input').value;
+            if (!startupName) return;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = 'Searching...';
+
+            try {
+                const formData = new FormData();
+                formData.append('startup_name', startupName);
+
+                const response = await fetch('http://127.0.0.1:8000/search', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Directly handle the plain text response
+                const text = await response.text(); // Use .text() to get the plain text response
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="result-header">
+                            <h2>Results for: ${startupName}</h2>
+                        </div>
+                        <div class="result-content">
+                            ${text}
+                        </div>
+                    `;
+                } else {
+                    throw new Error(text || 'Failed to get results');
+                }
+            } catch (error) {
+                console.error("Search error:", error);
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        Error: ${error.message || 'Something went wrong'}
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

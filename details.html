@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details Page</title>
+    <style>
+        /* Your existing styles */
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+        .logo-full {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .details-container {
+            background-color: #ffffff;
+            width: 1500px;
+            padding: 100px;
+            border-radius: 50px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .details-container h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 50px;
+            color: #333;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 50px;
+        }
+        .option-box {
+            width: 250px;
+            height: 250px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .option-box:hover {
+            transform: scale(1.05);
+        }
+        .option-box.selected {
+            border-color: #4CAF50;
+            background-color: #e7f9e7;
+        }
+        .option-box img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .question {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 30px;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 30px;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="default.html">
+        <img src="logofull.png" alt="Full Logo" class="logo-full">
+    </a>
+
+    <div class="details-container">
+        <h2>What best describes you?</h2>
+
+        <div class="options">
+            <div class="option-box" onclick="selectOption(this, 'Founder')">
+                <img src="founder.png" alt="Founder Logo">
+                Founder
+            </div>
+            <div class="option-box" onclick="selectOption(this, 'Enthusiast')">
+                <img src="enthusiast.png" alt="Enthusiast Logo">
+                Enthusiast
+            </div>
+            <div class="option-box" onclick="selectOption(this, 'Investor')">
+                <img src="investor.png" alt="Investor Logo">
+                Investor
+            </div>
+        </div>
+
+        <div class="question">What are you interested in?</div>
+        <input type="text" class="input-field" placeholder="Your profession" required>
+        <input type="text" class="input-field" placeholder="Your expertise" required>
+
+        <div class="question">What industries do you want to explore?</div>
+        <input type="text" class="input-field" placeholder="Industries of interest" required>
+
+        <button class="submit-button">Submit</button>
+    </div>
+
+    <script>
+        function selectOption(element, value) {
+            // Clear previous selections
+            document.querySelectorAll('.option-box').forEach(box => box.classList.remove('selected'));
+            
+            // Mark this option as selected
+            element.classList.add('selected');
+    
+            // Save the selected value to localStorage
+            localStorage.setItem("userPreference", value);
+        }
+    
+        // Retrieve the email from localStorage when the page loads
+        const userEmail = localStorage.getItem("userEmail");
+    
+        document.querySelector(".submit-button").addEventListener("click", async function(event) {
+            event.preventDefault();
+    
+            // Collect the selected preference
+            const userDescribe = localStorage.getItem("userPreference");
+            const profession = document.querySelector("input[placeholder='Your profession']").value;
+            const expertise = document.querySelector("input[placeholder='Your expertise']").value;
+            const industries = document.querySelector("input[placeholder='Industries of interest']").value;
+    
+            // Prepare the data for the API request
+            const data = {
+                email: userEmail,
+                describe: userDescribe,
+                profession: profession,
+                expertise: expertise,
+                industries: industries
+            };
+    
+            try {
+                // Send the data to the backend API
+                const response = await fetch("http://127.0.0.1:8000/details", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+    
+                const result = await response.json();
+    
+                if (response.ok) {
+                    alert(result.message); // Success message
+                    window.location.href = "login.html"; // Redirect to login.html
+                } else {
+                    alert("Error: " + result.detail); // Error message from the API
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            }
+        });
+    </script>
+    
+</body>
+</html>

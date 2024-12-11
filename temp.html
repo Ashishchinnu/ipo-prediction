@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        /* Base and Layout Styling */
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FFFFFF;
+            color: #293340;
+            position: relative;
+        }
+        .logo {
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .logo img {
+            width: 300px;
+            height: auto;
+        }
+        h1 {
+            font-size: 48px;
+            color: #6DBF57;
+            margin-top: 20px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 90%;
+            max-width: 1280px;
+            background-color: #293340;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: 20px;
+        }
+        .options-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .option-box {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            margin: 10px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #FFFFFF;
+            color: #293340;
+            border-radius: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            position: relative;
+        }
+        .option-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+        }
+        .option-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #6DBF57;
+        }
+        .option-description {
+            font-size: 16px;
+            color: #666666;
+            text-align: center;
+            max-width: 260px;
+        }
+        .additional-icons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .additional-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 18px;
+            color: #6DBF57;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .additional-icon:hover {
+            color: #293340;
+        }
+        .icon-text {
+            font-size: 12px;
+            color: #666666;
+            text-align: center;
+        }
+        /* Footer */
+        .footer {
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #1B2530;
+            color: #FFFFFF;
+            font-size: 14px;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo at the top -->
+    <div class="logo" onclick="window.location.href='about.html'">
+        <img src="logofull.png" alt="Logo">
+    </div>
+
+    <h1>Home</h1>
+
+    <!-- Main container with centered options -->
+    <div class="main-container">
+        <div class="options-container">
+            
+            <!-- Startup Idea Generator Box -->
+            <div class="option-box" onclick="window.location.href='startupideagenerator.html'">
+                <div class="option-icon">💡</div>
+                <div>Startup Idea Generator</div>
+                <p class="option-description">Generate unique startup ideas tailored to your interests and market needs.</p>
+                <div class="additional-icons">
+                    <div class="additional-icon">
+                        🧩
+                        <div class="icon-text">Random Ideas</div>
+                    </div>
+                    <div class="additional-icon">
+                        🔄
+                        <div class="icon-text">Customize Ideas</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trending Events Box -->
+            <div class="option-box" onclick="window.location.href='trending_events.html'">
+                <div class="option-icon">📈</div>
+                <div>Trending Events</div>
+                <p class="option-description">Stay updated with the latest trends and events in the startup world.</p>
+                <div class="additional-icons">
+                    <div class="additional-icon">
+                        📅
+                        <div class="icon-text">Event Calendar</div>
+                    </div>
+                    <div class="additional-icon">
+                        📰
+                        <div class="icon-text">News Updates</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Startups Box -->
+            <div class="option-box" onclick="window.location.href='search_startups.html'">
+                <div class="option-icon">🔍</div>
+                <div>Search Startups</div>
+                <p class="option-description">Explore and search through a wide range of startups to find the perfect match.</p>
+                <div class="additional-icons">
+                    <div class="additional-icon">
+                        📂
+                        <div class="icon-text">Browse Database</div>
+                    </div>
+                    <div class="additional-icon">
+                        ⭐
+                        <div class="icon-text">Favorite Startups</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Startup Resources Box -->
+            <div class="option-box" onclick="window.location.href='startup_resources.html'">
+                <div class="option-icon">📚</div>
+                <div>Startup Resources</div>
+                <p class="option-description">Access valuable resources and tools to help your startup succeed.</p>
+                <div class="additional-icons">
+                    <div class="additional-icon">
+                        🛠️
+                        <div class="icon-text">Tools</div>
+                    </div>
+                    <div class="additional-icon">
+                        📘
+                        <div class="icon-text">Guides</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        VentureVision 2024
+    </div>
+
+</body>
+</html>

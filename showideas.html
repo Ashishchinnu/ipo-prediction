@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Ideas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            color: #5b5b5b;
+            position: relative;
+        }
+        .logo {
+            margin-top: 60px;
+            cursor: pointer;
+        }
+        .logo img {
+            width: 1200px;
+            height: auto;
+        }
+        .homepage-title {
+            font-size: 192px;
+            color: #2a3340; /* Dark navy blue for header text */
+            margin-top: 60px;
+        }
+        .enthusiast-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 180px;
+            width: 90%;
+            max-width: 3600px; /* Increased width to 3 times */
+            background-color: #ffffff; /* White background */
+            border-radius: 105px;
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.15);
+            margin-top: 60px;
+            text-align: center;
+        }
+        .enthusiast-container h2 {
+            font-size: 108px;
+            color: #2a3340; /* Dark navy blue for headings */
+            margin-bottom: 90px;
+        }
+        .ideas-list {
+            font-size: 60px;
+            margin-top: 60px;
+            color: #333;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+        .back-button {
+            cursor: pointer;
+            background-color: #000000; /* Black button */
+            color: white;
+            padding: 45px 90px;
+            border-radius: 45px;
+            font-size: 54px;
+            border: none;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #333333; /* Dark gray on hover */
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 30px 0;
+            text-align: center;
+            background-color: #2a3340; /* Dark navy blue for footer */
+            color: #ffffff;
+            font-size: 84px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo" onclick="window.location.href='enthusiasthomepage.html'">
+        <img src="logofull.png" alt="Full Logo">
+    </div>
+    <div class="homepage-title">Startup Ideas</div>
+
+    <div class="enthusiast-container">
+        <h2>Your Generated Ideas</h2>
+        <div class="ideas-list" id="ideasList"></div>
+        <button class="back-button" onclick="goBack()">Go back to Generator</button>
+    </div>
+
+    <div class="footer">
+        VentureVision 2024
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = 'startupideagenerator.html';
+        }
+
+        function displayIdeas() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ideas = JSON.parse(decodeURIComponent(urlParams.get('ideas')));
+            const ideasListDiv = document.getElementById('ideasList');
+            // Replace **text** with <strong>text</strong> to make it bold
+            const formattedIdeas = ideas.map(idea => idea.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'));
+            ideasListDiv.innerHTML = formattedIdeas.join('<br><br>');
+        }
+
+        window.onload = displayIdeas;
+    </script>
+
+</body>
+</html>

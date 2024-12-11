@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            background-color: #FFFFFF; /* White background */
+            color: #293340; /* Dark navy text color */
+            position: relative;
+        }
+        .logo {
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .logo img {
+            width: 1200px;
+            height: auto;
+        }
+        h1 {
+            font-size: 64px;
+            color: #6DBF57; /* Accent Green for heading */
+            margin-top: 20px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            width: 90%;
+            max-width: 4800px;
+            height: 1200px;
+            background-color: #293340; /* Dark navy blue background for main container */
+            border-radius: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #FFFFFF; /* White text color */
+        }
+        .options-container {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            flex-wrap: nowrap;
+        }
+        .option-box {
+            flex: 1;
+            margin: 0 10px;
+            height: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #FFFFFF; /* White background for option boxes */
+            color: #293340; /* Dark navy text color */
+            border-radius: 20px;
+            font-size: 48px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+        }
+        .option-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3);
+        }
+        .option-icon {
+            font-size: 120px;
+            margin-bottom: 20px;
+            color: #6DBF57; /* Accent Green for icons */
+        }
+        .option-description {
+            font-size: 32px;
+            color: #666666; /* Secondary text color */
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #1B2530; /* Darker navy for footer */
+            color: #FFFFFF; /* White text color */
+            font-size: 28px;
+        }
+        /* Decorative circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+        .circle1 {
+            width: 200px;
+            height: 200px;
+            background-color: #6DBF57; /* Accent Green for decorative circles */
+            top: 10%;
+            left: 5%;
+        }
+        .circle2 {
+            width: 150px;
+            height: 150px;
+            background-color: #6DBF57;
+            bottom: 15%;
+            right: 10%;
+        }
+        .ideas-container {
+            width: 80%;
+            margin-top: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: left;
+            display: none;
+        }
+        .ideas-container h2 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #6DBF57; /* Accent Green for heading */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo at the top -->
+    <div class="logo" onclick="window.location.href='about.html'">
+        <img src="logofull.png" alt="Logo">
+    </div>
+
+    <h1>Home</h1>
+
+    <!-- Decorative circles for visual interest -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+
+    <!-- Main container with centered options -->
+    <div class="main-container">
+        <div class="options-container">
+            <!-- Startup Idea Generator Box -->
+            <div class="option-box" onclick="window.location.href='startupideagenerator.html'">
+                <div class="option-icon">💡</div> <!-- Lightbulb icon for idea generator -->
+                <div>Startup Idea Generator</div>
+                <p class="option-description">Generate unique startup ideas tailored to your interests and market needs.</p>
+            </div>
+
+            <!-- Trending Events Box -->
+            <div class="option-box" onclick="window.location.href='news.html'">
+                <div class="option-icon">📈</div> <!-- Graph icon for trending events -->
+                <div>Trending Events</div>
+                <p class="option-description">Stay updated with the latest trends and events in the startup world.</p>
+            </div>
+
+            <!-- Search Startups Box -->
+            <div class="option-box" onclick="window.location.href='search_startups.html'">
+                <div class="option-icon">🔍</div> <!-- Magnifying glass icon for search startups -->
+                <div>Search Startups</div>
+                <p class="option-description">Explore and search through a wide range of startups to find the perfect match.</p>
+            </div>
+            
+            <!-- Startup Resources Box -->
+            <div class="option-box" onclick="window.location.href='startup_resources.html'">
+                <div class="option-icon">📚</div> <!-- Book icon for resources -->
+                <div>Startup Resources</div>
+                <p class="option-description">Access valuable resources and tools to help your startup succeed.</p>
+            </div>
+        </div>
+
+        <!-- Container for displaying generated startup ideas -->
+        <div id="ideasContainer" class="ideas-container">
+            <h2>Generated Startup Ideas:</h2>
+            <div id="startupIdeas"></div>
+        </div>
+    </div>
+
+    <!-- Footer bar -->
+    <div class="footer">
+        VentureVision 2024
+    </div>
+
+    <script>
+        async function generateIdeas() {
+            const response = await fetch('http://127.0.0.1:8000/generate-ideas/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ industry: "automobile", description: "car rental" }),
+            });
+            const data = await response.json();
+
+            // Assuming the HTML output is received in data.ideas
+            document.getElementById('startupIdeas').innerHTML = data.ideas;
+            document.getElementById('ideasContainer').style.display = 'block'; // Show ideas container
+        }
+    </script>
+
+</body>
+</html>

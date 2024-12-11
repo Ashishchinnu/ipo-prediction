@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VentureVision - Company Search</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #293340;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: 18px;
+        }
+
+        header {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: rgb(109, 191, 87);
+        }
+
+        main {
+            flex: 1;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        h2 {
+            color: rgb(41, 51, 64);
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label, select, input, button {
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        select, input {
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            border: 2px solid rgb(41, 51, 64);
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: rgb(109, 191, 87);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(90, 160, 72);
+        }
+
+        #result {
+            margin-top: 20px;
+            color: rgb(41, 51, 64);
+            font-size: 1.2em;
+            text-align: left;
+        }
+
+        footer {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: rgb(109, 191, 87);
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>VentureVision</h1>
+        <p>Your Gateway to Startup Insights</p>
+    </header>
+    <main>
+        <h2>Search Company in Industry</h2>
+        <form id="companyForm">
+            <label for="industry">Industry:</label>
+            <select id="industry" name="industry">
+                <option value="tech">Tech</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="consumer">Consumer</option>
+                <option value="finance">Finance</option>
+            </select>
+
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required>
+
+            <button type="button" onclick="submitForm()">Search</button>
+        </form>
+
+        <div id="result"></div>
+    </main>
+    <footer>
+        <p>Contact us at <a href="mailto:info@venturevision.com">info@venturevision.com</a> | &copy; 2024 VentureVision</p>
+        <p>Follow us on <a href="https://twitter.com/venturevision" target="_blank">Twitter</a> and <a href="https://linkedin.com/company/venturevision" target="_blank">LinkedIn</a></p>
+    </footer>
+
+    <script>
+        async function submitForm() {
+            const industry = document.getElementById('industry').value;
+            const companyName = document.getElementById('companyName').value;
+
+            if (!companyName || companyName.trim() === '') {
+                document.getElementById('result').textContent = "Please provide a valid company name.";
+                return;
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/search_company/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        'industry': industry,
+                        'company_name': companyName
+                    })
+                });
+
+                const result = await response.json();
+                document.getElementById('result').textContent = result.result || 'Error: ' + result.detail;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').textContent = 'An error occurred. Please try again.';
+            }
+        }
+    </script>
+</body>
+</html>

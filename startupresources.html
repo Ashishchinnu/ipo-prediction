@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VentureVision - Startup Resources</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #293340;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header img {
+            max-width: 150px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: rgb(109, 191, 87);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: rgb(41, 51, 64);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .resources-content {
+            line-height: 1.6;
+            font-size: 1.2em; /* Increase base font size */
+        }
+
+        .highlighted {
+            font-weight: bold;
+            font-size: 1.3em; /* Increase size for bolded content */
+            display: block;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: rgb(109, 191, 87);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="enthusiasthomepage.html">
+            <img src="/static/logofull.png" alt="VentureVision Logo">
+        </a>
+        <h1>VentureVision</h1>
+        <p>Your Gateway to Startup Insights</p>
+    </header>
+    <main>
+        <h2>Here Are Resources for Startup Founders</h2>
+        <div id="resources-content" class="resources-content">
+            <!-- Placeholder for dynamic content -->
+            Loading resources...
+        </div>
+    </main>
+    <footer>
+        <p>Contact us at <a href="mailto:info@venturevision.com">info@venturevision.com</a> | &copy; 2024 VentureVision</p>
+        <p>Follow us on <a href="https://twitter.com/venturevision" target="_blank">Twitter</a> and <a href="https://linkedin.com/company/venturevision" target="_blank">LinkedIn</a></p>
+    </footer>
+
+    <script>
+        // Fetch resources content from the backend API at the correct endpoint
+        fetch('http://127.0.0.1:8000/resources')
+    .then(response => {
+        // Check if the response is ok (status code 2xx)
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        // Check if the content type is text (HTML or plain text)
+        const contentType = response.headers.get("Content-Type");
+        if (!contentType || !contentType.includes("text")) {
+            throw new Error("Expected text response, but got: " + contentType);
+        }
+
+        return response.text(); // Parse the response as text
+    })
+    .then(content => {
+        // Transform content to make text surrounded by ** bold and on a new line
+        const formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<span class="highlighted">$1</span>');
+        
+        // Insert the transformed content into the resources-content div
+        document.getElementById('resources-content').innerHTML = formattedContent;
+    })
+    .catch(error => {
+        // Handle any errors during the fetch process
+        console.error('Error fetching resources:', error);
+        document.getElementById('resources-content').innerHTML = 'Failed to load resources: ' + error.message;
+    });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VentureVision - Startup News</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #FFFFFF;
+            color: #293340;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header img {
+            max-width: 150px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: rgb(109, 191, 87);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: rgb(41, 51, 64);
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .news-content {
+            line-height: 1.6;
+            font-size: 1.2em; /* Increase base font size */
+        }
+
+        .highlighted {
+            font-weight: bold;
+            font-size: 1.3em; /* Increase size for bolded content */
+            display: block;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: rgb(41, 51, 64);
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: rgb(109, 191, 87);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="enthusiasthomepage.html">
+            <img src="/static/logofull.png" alt="VentureVision Logo">
+        </a>
+        <h1>VentureVision</h1>
+        <p>Your Gateway to Startup Insights</p>
+    </header>
+    <main>
+        <h2>Latest News for Startup Founders</h2>
+        <div id="news-content" class="news-content">
+            <!-- Placeholder for dynamic content -->
+            Loading news...
+        </div>
+    </main>
+    <footer>
+        <p>Contact us at <a href="mailto:info@venturevision.com">info@venturevision.com</a> | &copy; 2024 VentureVision</p>
+        <p>Follow us on <a href="https://twitter.com/venturevision" target="_blank">Twitter</a> and <a href="https://linkedin.com/company/venturevision" target="_blank">LinkedIn</a></p>
+    </footer>
+
+    <script>
+        // Fetch news content from the backend API at the correct endpoint
+        fetch('http://127.0.0.1:8000/news')
+            .then(response => response.text()) // Expecting the response as text (HTML or plain text)
+            .then(content => {
+                // Transform content to make text surrounded by ** bold and on a new line
+                const formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<span class="highlighted">$1</span>');
+
+                // Insert the transformed content into the news-content div
+                document.getElementById('news-content').innerHTML = formattedContent;
+            })
+            .catch(error => {
+                // Handle any errors during the fetch process
+                console.error('Error fetching news:', error);
+                document.getElementById('news-content').innerHTML = 'Failed to load news. Please try again later.';
+            });
+    </script>
+</body>
+</html>
